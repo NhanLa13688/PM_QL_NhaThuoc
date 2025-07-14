@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Thuốc A",
+    "expiry": "15/07/2025",
+    "quantity": 1
+  },
+  {
+    "name": "Thuốc C",
+    "expiry": "24/11/2025",
+    "quantity": 1
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "19/11/2025",
+    "quantity": 1
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "30/12/2025",
+    "quantity": 2
+  },
+  {
+    "name": "Pracetamol",
+    "expiry": "30/12/2025",
+    "quantity": 1
+  }
+]

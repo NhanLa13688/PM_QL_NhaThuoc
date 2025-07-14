@@ -1,0 +1,68 @@
+[
+  {
+    "name": "BCS",
+    "quantity": 1,
+    "price": 1000,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "quantity": 1,
+    "price": 1000,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "decolgen",
+    "quantity": 14,
+    "price": 10000,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "BCS",
+    "expiry": "10/03/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "14/07/2025",
+    "quantity": 1,
+    "date": "14/07/2025"
+  },
+  {
+    "name": "Thuốc A 3",
+    "expiry": "22/04/2026",
+    "quantity": 1,
+    "date": "14/07/2025"
+  }
+]

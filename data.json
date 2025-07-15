@@ -5,5 +5,26 @@
     "quantity": 986,
     "cost_price": 10000.0,
     "sell_price": 15000.0
+  },
+  {
+    "name": "Thuốc B",
+    "expiry": "24/07/2025",
+    "quantity": 100,
+    "cost_price": 10000.0,
+    "sell_price": 32000.0
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "24/07/2025",
+    "quantity": 48,
+    "cost_price": 10000.0,
+    "sell_price": 32000.0
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "24/07/2025",
+    "quantity": 100,
+    "cost_price": 100000.0,
+    "sell_price": 400000.0
   }
 ]

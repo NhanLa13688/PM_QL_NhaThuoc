@@ -7,21 +7,22 @@ from PyQt5.QtWidgets import (
     QDateEdit, QSpinBox, QMessageBox, QHeaderView, QCompleter,
     QDoubleSpinBox
 )
-from PyQt5.QtCore import Qt, QDate, QStringListModel
-from PyQt5.QtGui import QFont, QColor, QBrush
+from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtGui import QFont, QColor, QBrush, QIcon
 from datetime import datetime, timedelta
 
 DATA_FILE = 'data.json'
 SALES_FILE = 'sales.json'
 
 def format_currency(value):
-    return f"{int(value):,}".replace(",", ".")
+    return f"{int(value):,}".replace(",", ".")  # 1000 -> 1.000
 
 class MedicineManager(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Phần mềm quản lý thuốc Hồng Phúc")
+        self.setWindowTitle("💊 Phần mềm quản lý thuốc Hồng Phúc")
         self.resize(1100, 650)
+        self.setWindowIcon(QIcon("icon.png"))  # Thêm icon nếu có
 
         self.medicines = []
         self.sales = []
@@ -30,9 +31,62 @@ class MedicineManager(QWidget):
         self.load_sales()
 
         self.init_ui()
+        self.setStyleSheet(self.load_stylesheet())
+
         self.update_stock_table()
         self.update_profit_table()
         self.update_sell_history_table(self.sales)
+
+    def load_stylesheet(self):
+        return """
+            QWidget {
+                background-color: #f5f5f5;
+                font-family: Arial;
+                font-size: 13px;
+            }
+            QTabWidget::pane {
+                border: 1px solid #aaa;
+                background: #ffffff;
+            }
+            QTabBar::tab {
+                background: #dcdcdc;
+                padding: 10px;
+                margin: 1px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QTabBar::tab:selected {
+                background: #4CAF50;
+                color: white;
+            }
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+            QLineEdit, QSpinBox, QDoubleSpinBox, QDateEdit {
+                padding: 4px;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                background-color: white;
+            }
+            QTableWidget {
+                background-color: white;
+                border: 1px solid #ccc;
+                alternate-background-color: #f9f9f9;
+            }
+            QHeaderView::section {
+                background-color: #eeeeee;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+        """
 
     def init_ui(self):
         font = QFont()
@@ -41,6 +95,8 @@ class MedicineManager(QWidget):
 
         layout = QVBoxLayout(self)
         self.tabs = QTabWidget()
+        self.tabs.tabBar().setExpanding(False)
+        self.tabs.setStyleSheet("QTabBar::tab { min-width: 120px; padding: 8px; }")
         layout.addWidget(self.tabs)
 
         self.init_sell_tab()
@@ -50,6 +106,8 @@ class MedicineManager(QWidget):
     def init_sell_tab(self):
         self.sell_tab = QWidget()
         sell_layout = QVBoxLayout(self.sell_tab)
+        sell_layout.setContentsMargins(10, 10, 10, 10)
+        sell_layout.setSpacing(10)
 
         input_layout = QHBoxLayout()
         self.sell_name_input = QLineEdit()
@@ -59,6 +117,7 @@ class MedicineManager(QWidget):
         self.sell_quantity_input.setMaximum(100_000_000)
         self.sell_quantity_input.setFixedWidth(100)
         self.sell_button = QPushButton("Bán thuốc")
+        self.sell_button.setCursor(Qt.PointingHandCursor)
         self.sell_button.clicked.connect(self.sell_medicine)
 
         input_layout.addWidget(self.sell_name_input)
@@ -69,6 +128,7 @@ class MedicineManager(QWidget):
         self.sell_history_table.setColumnCount(3)
         self.sell_history_table.setHorizontalHeaderLabels(["Tên thuốc", "Số lượng", "Thời gian bán"])
         self.sell_history_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.sell_history_table.setAlternatingRowColors(True)
 
         sell_layout.addLayout(input_layout)
         sell_layout.addWidget(self.sell_history_table)
@@ -77,10 +137,11 @@ class MedicineManager(QWidget):
     def init_stock_tab(self):
         self.stock_tab = QWidget()
         stock_layout = QVBoxLayout(self.stock_tab)
+        stock_layout.setContentsMargins(10, 10, 10, 10)
+        stock_layout.setSpacing(10)
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Tên thuốc")
-
         self.date_input = QDateEdit()
         self.date_input.setCalendarPopup(True)
         self.date_input.setDisplayFormat("dd/MM/yyyy")
@@ -94,15 +155,14 @@ class MedicineManager(QWidget):
         self.cost_input.setPrefix("Giá vốn: ")
         self.cost_input.setMaximum(100_000_000)
         self.cost_input.setDecimals(0)
-
         self.sell_input = QDoubleSpinBox()
         self.sell_input.setPrefix("Giá bán: ")
         self.sell_input.setMaximum(100_000_000)
         self.sell_input.setDecimals(0)
 
         stock_button = QPushButton("Nhập kho")
+        stock_button.setCursor(Qt.PointingHandCursor)
         stock_button.clicked.connect(self.add_medicine)
-        
 
         input_layout = QHBoxLayout()
         input_layout.addWidget(self.name_input)
@@ -117,6 +177,8 @@ class MedicineManager(QWidget):
         self.stock_table.setHorizontalHeaderLabels(["Tên thuốc", "Hạn sử dụng", "Số lượng", "Giá vốn", "Giá bán"])
         self.stock_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.stock_table.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.stock_table.setAlternatingRowColors(True)
+        self.stock_table.setSortingEnabled(True)
         self.stock_table.cellDoubleClicked.connect(self.edit_or_delete_medicine)
 
         stock_layout.addLayout(input_layout)
@@ -126,16 +188,20 @@ class MedicineManager(QWidget):
     def init_profit_tab(self):
         self.profit_tab = QWidget()
         profit_layout = QVBoxLayout(self.profit_tab)
+        profit_layout.setContentsMargins(10, 10, 10, 10)
+        profit_layout.setSpacing(10)
 
         self.total_label = QLabel("Tổng lợi nhuận: 0 đ")
         font = self.total_label.font()
         font.setPointSize(16)
         self.total_label.setFont(font)
+        self.total_label.setStyleSheet("color: #2E7D32;")
 
         self.profit_table = QTableWidget()
         self.profit_table.setColumnCount(5)
         self.profit_table.setHorizontalHeaderLabels(["Tên thuốc", "SL", "Giá vốn", "Giá bán", "Lợi nhuận"])
         self.profit_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.profit_table.setAlternatingRowColors(True)
 
         profit_layout.addWidget(self.total_label)
         profit_layout.addWidget(self.profit_table)
@@ -190,7 +256,6 @@ class MedicineManager(QWidget):
         for med in matches:
             if qty_left == 0:
                 break
-
             sold = min(med["quantity"], qty_left)
             med["quantity"] -= sold
             qty_left -= sold
@@ -228,7 +293,8 @@ class MedicineManager(QWidget):
             expiry_item = QTableWidgetItem(med["expiry"])
             expiry_date = datetime.strptime(med["expiry"], "%d/%m/%Y")
             if expiry_date - datetime.now() <= timedelta(days=7):
-                expiry_item.setBackground(QBrush(QColor("red")))
+                expiry_item.setBackground(QBrush(QColor("#FF9999")))
+                expiry_item.setText(f"⚠️ {med['expiry']}")
             self.stock_table.setItem(i, 1, expiry_item)
             self.stock_table.setItem(i, 2, QTableWidgetItem(str(med["quantity"])))
             self.stock_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(med['cost_price'])} đ"))
@@ -269,10 +335,8 @@ class MedicineManager(QWidget):
             with open(DATA_FILE, 'r', encoding='utf-8') as f:
                 self.medicines = json.load(f)
                 for med in self.medicines:
-                    if "cost_price" not in med:
-                        med["cost_price"] = 0.0
-                    if "sell_price" not in med:
-                        med["sell_price"] = 0.0
+                    med.setdefault("cost_price", 0.0)
+                    med.setdefault("sell_price", 0.0)
 
     def save_data(self):
         with open(DATA_FILE, 'w', encoding='utf-8') as f:

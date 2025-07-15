@@ -1,3 +1,10 @@
+#Lệnh xuất file ra exe
+# pip install pyinstaller
+# pyinstaller --noconfirm --windowed --icon=icon.ico medicine_manager.py // có icon
+# pyinstaller --noconfirm --windowed medicine_manager.py // chưa có icon
+
+#
+#
 import sys
 import json
 import os
@@ -7,9 +14,9 @@ from PyQt5.QtWidgets import (
     QDateEdit, QSpinBox, QMessageBox, QHeaderView, QCompleter,
     QDoubleSpinBox, QComboBox
 )
-from PyQt5.QtCore import Qt, QDate, QStringListModel
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QFont, QColor, QBrush
-from datetime import datetime, timedelta
+from datetime import datetime
 
 DATA_FILE = 'data.json'
 SALES_FILE = 'sales.json'
@@ -26,7 +33,6 @@ class MedicineManager(QWidget):
         self.low_stock_threshold = 5
         self.medicines = []
         self.sales = []
-        self.profit_data = []
 
         self.load_data()
         self.load_sales()
@@ -49,7 +55,6 @@ class MedicineManager(QWidget):
         self.init_stock_tab()
         self.init_profit_tab()
 
-        # Thêm thông tin bản quyền
         author_label = QLabel("Design by Nhan La | Phone: 0969168340 © 2025 Copyright Registered")
         author_label.setAlignment(Qt.AlignCenter)
         author_label.setStyleSheet("color: gray; font-size: 10pt; margin-top: 10px;")
@@ -143,16 +148,24 @@ class MedicineManager(QWidget):
         self.profit_tab = QWidget()
         profit_layout = QVBoxLayout(self.profit_tab)
 
+        filter_layout = QHBoxLayout()
+        self.filter_combo = QComboBox()
+        self.filter_combo.addItems(["Tất cả", "Hôm nay", "Tuần này", "Tháng này", "Năm nay"])
+        self.filter_combo.currentIndexChanged.connect(self.update_profit_table)
+        filter_layout.addWidget(QLabel("Xem theo: "))
+        filter_layout.addWidget(self.filter_combo)
+
         self.total_label = QLabel("Tổng lợi nhuận: 0 đ")
         font = self.total_label.font()
         font.setPointSize(16)
         self.total_label.setFont(font)
 
         self.profit_table = QTableWidget()
-        self.profit_table.setColumnCount(5)
-        self.profit_table.setHorizontalHeaderLabels(["Tên thuốc", "SL", "Giá vốn", "Giá bán", "Lợi nhuận"])
+        self.profit_table.setColumnCount(6)
+        self.profit_table.setHorizontalHeaderLabels(["Ngày", "Tên thuốc", "Số lượng", "Giá vốn", "Giá bán", "Lợi nhuận"])
         self.profit_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
+        profit_layout.addLayout(filter_layout)
         profit_layout.addWidget(self.total_label)
         profit_layout.addWidget(self.profit_table)
         self.tabs.addTab(self.profit_tab, "Lợi nhuận")
@@ -197,7 +210,7 @@ class MedicineManager(QWidget):
             QMessageBox.warning(self, "Lỗi", "Vui lòng nhập tên thuốc để bán!")
             return
 
-        matches = [med for med in self.medicines if med["name"].lower() == name.lower() and med["quantity"] > 0]
+        matches = [m for m in self.medicines if m["name"].lower() == name.lower() and m["quantity"] > 0]
         if not matches:
             QMessageBox.warning(self, "Lỗi", "Không tìm thấy thuốc trong kho hoặc đã hết!")
             return
@@ -207,7 +220,6 @@ class MedicineManager(QWidget):
         for med in matches:
             if qty_left == 0:
                 break
-
             sold = min(med["quantity"], qty_left)
             med["quantity"] -= sold
             qty_left -= sold
@@ -236,38 +248,19 @@ class MedicineManager(QWidget):
             return
 
         med = self.medicines[row]
-        reply = QMessageBox.question(self, "Xác nhận xoá", 
-                                     f"Bạn có chắc muốn xoá thuốc '{med['name']}' hạn {med['expiry']}?",
-                                     QMessageBox.Yes | QMessageBox.No)
+        reply = QMessageBox.question(self, "Xác nhận xoá", f"Bạn có chắc muốn xoá thuốc '{med['name']}' hạn {med['expiry']}?", QMessageBox.Yes | QMessageBox.No)
         if reply == QMessageBox.Yes:
             del self.medicines[row]
             self.save_data()
             self.update_stock_table()
 
     def update_stock_table(self):
-        def get_priority(med):
-            expiry_date = datetime.strptime(med["expiry"], "%d/%m/%Y")
-            days_left = (expiry_date - datetime.now()).days
-            if days_left < 0:
-                return 0  # quá hạn
-            elif days_left <= 3:
-                return 1  # sắp hết hạn
-            elif days_left <= 7:
-                return 2  # cận date
-            else:
-                return 3  # bình thường
-
-        # 👉 Sắp xếp thuốc theo hạn sử dụng ưu tiên
-        self.medicines.sort(key=get_priority)
-
-        self.stock_table.setRowCount(len(self.medicines))
+        self.medicines.sort(key=lambda m: datetime.strptime(m["expiry"], "%d/%m/%Y"))
         self.stock_table.setRowCount(len(self.medicines))
         for i, med in enumerate(self.medicines):
             self.stock_table.setItem(i, 0, QTableWidgetItem(med["name"]))
-
             expiry_item = QTableWidgetItem(med["expiry"])
-            expiry_date = datetime.strptime(med["expiry"], "%d/%m/%Y")
-            days_left = (expiry_date - datetime.now()).days
+            days_left = (datetime.strptime(med["expiry"], "%d/%m/%Y") - datetime.now()).days
             if days_left < 0:
                 expiry_item.setBackground(QBrush(QColor("black")))
                 expiry_item.setForeground(QBrush(QColor("white")))
@@ -276,13 +269,10 @@ class MedicineManager(QWidget):
             elif days_left <= 7:
                 expiry_item.setBackground(QBrush(QColor("orange")))
             self.stock_table.setItem(i, 1, expiry_item)
-
-            #self.stock_table.setItem(i, 2, QTableWidgetItem(str(med["quantity"])))
             qty_item = QTableWidgetItem(str(med["quantity"]))
             if med["quantity"] <= self.low_stock_threshold:
                 qty_item.setBackground(QBrush(QColor("yellow")))
             self.stock_table.setItem(i, 2, qty_item)
-
             self.stock_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(med['cost_price'])} đ"))
             self.stock_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(med['sell_price'])} đ"))
             self.stock_table.setItem(i, 5, QTableWidgetItem(med.get("import_date", "-")))
@@ -293,17 +283,30 @@ class MedicineManager(QWidget):
 
     def update_profit_table(self):
         total_profit = 0
-        self.profit_table.setRowCount(len(self.sales))
-        for i, sale in enumerate(self.sales):
-            self.profit_table.setItem(i, 0, QTableWidgetItem(sale["name"]))
-            self.profit_table.setItem(i, 1, QTableWidgetItem(str(sale["quantity"])))
-            cost = sale["cost_price"] * sale["quantity"]
-            revenue = sale["sell_price"] * sale["quantity"]
-            profit = revenue - cost
+        self.profit_table.setRowCount(0)
+        filtered_sales = []
+        filter_option = self.filter_combo.currentText()
+        for sale in self.sales:
+            sale_dt = datetime.strptime(sale["date"], "%d/%m/%Y %H:%M:%S")
+            now = datetime.now()
+            add = filter_option == "Tất cả" or \
+                  (filter_option == "Hôm nay" and sale_dt.date() == now.date()) or \
+                  (filter_option == "Tuần này" and sale_dt.isocalendar()[1] == now.isocalendar()[1]) or \
+                  (filter_option == "Tháng này" and sale_dt.month == now.month and sale_dt.year == now.year) or \
+                  (filter_option == "Năm nay" and sale_dt.year == now.year)
+            if add:
+                filtered_sales.append(sale)
+
+        self.profit_table.setRowCount(len(filtered_sales))
+        for i, sale in enumerate(filtered_sales):
+            self.profit_table.setItem(i, 0, QTableWidgetItem(sale["date"]))
+            self.profit_table.setItem(i, 1, QTableWidgetItem(sale["name"]))
+            self.profit_table.setItem(i, 2, QTableWidgetItem(str(sale["quantity"])))
+            self.profit_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(sale['cost_price'])} đ"))
+            self.profit_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(sale['sell_price'])} đ"))
+            profit = (sale["sell_price"] - sale["cost_price"]) * sale["quantity"]
             total_profit += profit
-            self.profit_table.setItem(i, 2, QTableWidgetItem(f"{format_currency(sale['cost_price'])} đ"))
-            self.profit_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(sale['sell_price'])} đ"))
-            self.profit_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(profit)} đ"))
+            self.profit_table.setItem(i, 5, QTableWidgetItem(f"{format_currency(profit)} đ"))
 
         self.total_label.setText(f"Tổng lợi nhuận: {format_currency(total_profit)} đ")
 

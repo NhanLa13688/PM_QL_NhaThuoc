@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Thuốc A",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 10000.0,
+    "sell_price": 12000.0,
+    "date": "15/07/2025 11:22:02"
+  },
+  {
+    "name": "Thuốc B",
+    "expiry": "17/07/2025",
+    "quantity": 12,
+    "cost_price": 10000.0,
+    "sell_price": 11000.0,
+    "date": "15/07/2025 11:22:28"
+  },
+  {
+    "name": "Thuốc C",
+    "expiry": "26/08/2025",
+    "quantity": 9,
+    "cost_price": 1000.0,
+    "sell_price": 5000.0,
+    "date": "15/07/2025 11:22:35"
+  },
+  {
+    "name": "Thuốc C",
+    "expiry": "26/08/2025",
+    "quantity": 9,
+    "cost_price": 1000.0,
+    "sell_price": 5000.0,
+    "date": "15/07/2025 11:22:48"
+  },
+  {
+    "name": "Thuốc A",
+    "expiry": "15/07/2025",
+    "quantity": 89,
+    "cost_price": 10000.0,
+    "sell_price": 12000.0,
+    "date": "15/07/2025 11:23:59"
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "17/03/2026",
+    "quantity": 89,
+    "cost_price": 45000.0,
+    "sell_price": 50000.0,
+    "date": "15/07/2025 11:24:18"
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "17/03/2026",
+    "quantity": 10,
+    "cost_price": 45000.0,
+    "sell_price": 50000.0,
+    "date": "15/07/2025 11:24:19"
+  }
+]

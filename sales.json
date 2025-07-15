@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Thuốc A",
+    "expiry": "14/07/2025",
+    "quantity": 10,
+    "cost_price": 10000.0,
+    "sell_price": 15000.0,
+    "date": "14/08/2025 21:23:39"
+  },
+  {
+    "name": "Thuốc A",
+    "expiry": "14/07/2025",
+    "quantity": 3,
+    "cost_price": 10000.0,
+    "sell_price": 15000.0,
+    "date": "14/07/2025 21:23:44"
+  },
+  {
+    "name": "Thuốc A",
+    "expiry": "14/07/2025",
+    "quantity": 1,
+    "cost_price": 10000.0,
+    "sell_price": 15000.0,
+    "date": "14/07/2025 21:23:48"
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "24/07/2025",
+    "quantity": 52,
+    "cost_price": 10000.0,
+    "sell_price": 32000.0,
+    "date": "15/07/2025 09:05:30"
+  },
+  {
+    "name": "Thuốc D",
+    "expiry": "24/07/2025",
+    "quantity": 10,
+    "cost_price": 10000.0,
+    "sell_price": 32000.0,
+    "date": "15/07/2025 09:22:04"
+  },
+  {
+    "name": "Thuốc C",
+    "expiry": "01/01/2026",
+    "quantity": 10,
+    "cost_price": 2000.0,
+    "sell_price": 10000.0,
+    "date": "15/07/2025 09:32:19"
+  },
+  {
+    "name": "Thuốc C",
+    "expiry": "01/01/2026",
+    "quantity": 85,
+    "cost_price": 2000.0,
+    "sell_price": 10000.0,
+    "date": "15/07/2025 09:45:16"
+  },
+  {
+    "name": "Thuốc E",
+    "expiry": "15/07/2025",
+    "quantity": 85,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 09:46:09"
+  },
+  {
+    "name": "Thuốc E",
+    "expiry": "15/07/2025",
+    "quantity": 85,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 09:46:11"
+  },
+  {
+    "name": "Thuốc E",
+    "expiry": "15/07/2025",
+    "quantity": 9830,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 09:46:37"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:35"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:35"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:36"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:36"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:36"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:36"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:47"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:47"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:47"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:48"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:49"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:49"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:49"
+  },
+  {
+    "name": "Thuốc F",
+    "expiry": "15/07/2025",
+    "quantity": 10,
+    "cost_price": 100.0,
+    "sell_price": 200.0,
+    "date": "15/07/2025 10:44:49"
+  }
+]

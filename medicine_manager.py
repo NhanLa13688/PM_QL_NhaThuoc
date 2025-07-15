@@ -1,282 +1,339 @@
+#Lệnh xuất file ra exe
+# pip install pyinstaller
+# pyinstaller --noconfirm --windowed --icon=icon.ico medicine_manager.py // có icon
+# pyinstaller --noconfirm --windowed medicine_manager.py // chưa có icon
+
+#
+#
 import sys
 import json
 import os
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout,
-    QTableWidget, QTableWidgetItem, QHBoxLayout, QMessageBox,
-    QDateEdit, QSpinBox, QCompleter, QHeaderView, QLabel
+    QApplication, QWidget, QTabWidget, QVBoxLayout, QHBoxLayout,
+    QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem,
+    QDateEdit, QSpinBox, QMessageBox, QHeaderView, QCompleter,
+    QDoubleSpinBox, QComboBox
 )
-from PyQt5.QtCore import QDate, Qt
-from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtGui import QFont, QColor, QBrush
 from datetime import datetime
 
 DATA_FILE = 'data.json'
-SUGGESTION_FILE = 'suggestions.json'
+SALES_FILE = 'sales.json'
+
+def format_currency(value):
+    return f"{int(value):,}".replace(",", ".")
 
 class MedicineManager(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Phần mềm quản lý thuốc Hồng Phúc")
-        self.resize(1000, 600)
+        self.resize(1100, 650)
+
+        self.low_stock_threshold = 5
         self.medicines = []
-        self.filtered_medicines = []
-        self.suggestions = []
-        self.init_ui()
+        self.sales = []
+
         self.load_data()
-        self.load_suggestions()
+        self.load_sales()
+
+        self.init_ui()
+        self.update_stock_table()
+        self.update_profit_table()
+        self.update_sell_history_table(self.sales)
 
     def init_ui(self):
-        layout = QVBoxLayout()
         font = QFont()
-        font.setPointSize(15)
+        font.setPointSize(13)
         self.setFont(font)
 
-        # Ô tìm kiếm
-        search_layout = QHBoxLayout()
-        search_label = QLabel("Tìm thuốc:")
-        self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Nhập tên thuốc để tìm...")
-        self.search_input.textChanged.connect(self.filter_table)
-        search_layout.addWidget(search_label)
-        search_layout.addWidget(self.search_input)
-        layout.addLayout(search_layout)
+        layout = QVBoxLayout(self)
+        self.tabs = QTabWidget()
+        layout.addWidget(self.tabs)
 
-        # Nhập dữ liệu thuốc
+        self.init_sell_tab()
+        self.init_stock_tab()
+        self.init_profit_tab()
+
+        author_label = QLabel("Design by Nhan La | Phone: 0969168340 © 2025 Copyright Registered")
+        author_label.setAlignment(Qt.AlignCenter)
+        author_label.setStyleSheet("color: gray; font-size: 10pt; margin-top: 10px;")
+        layout.addWidget(author_label)
+
+    def init_sell_tab(self):
+        self.sell_tab = QWidget()
+        sell_layout = QVBoxLayout(self.sell_tab)
+
+        input_layout = QHBoxLayout()
+        self.sell_name_input = QLineEdit()
+        self.sell_name_input.setPlaceholderText("Nhập tên thuốc để bán")
+        self.sell_quantity_input = QSpinBox()
+        self.sell_quantity_input.setPrefix("SL: ")
+        self.sell_quantity_input.setMinimum(1)
+        self.sell_quantity_input.setMaximum(100_000_000)
+        self.sell_quantity_input.setFixedWidth(100)
+        self.sell_button = QPushButton("Bán thuốc")
+        self.sell_button.setStyleSheet("background-color: green; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
+        self.sell_button.clicked.connect(self.sell_medicine)
+
+        input_layout.addWidget(self.sell_name_input)
+        input_layout.addWidget(self.sell_quantity_input)
+        input_layout.addWidget(self.sell_button)
+
+        self.sell_history_table = QTableWidget()
+        self.sell_history_table.setColumnCount(3)
+        self.sell_history_table.setHorizontalHeaderLabels(["Tên thuốc", "Số lượng", "Thời gian bán"])
+        self.sell_history_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        sell_layout.addLayout(input_layout)
+        sell_layout.addWidget(self.sell_history_table)
+        self.tabs.addTab(self.sell_tab, "Bán thuốc")
+
+    def init_stock_tab(self):
+        self.stock_tab = QWidget()
+        stock_layout = QVBoxLayout(self.stock_tab)
+
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Tên thuốc")
 
-        self.completer = QCompleter(self.suggestions)
-        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-        self.name_input.setCompleter(self.completer)
-
         self.date_input = QDateEdit()
         self.date_input.setCalendarPopup(True)
-        self.date_input.setDate(QDate.currentDate())
         self.date_input.setDisplayFormat("dd/MM/yyyy")
+        self.date_input.setDate(QDate.currentDate())
 
         self.quantity_input = QSpinBox()
+        self.quantity_input.setPrefix("SL: ")
         self.quantity_input.setMinimum(1)
-        self.quantity_input.setMaximum(1000)
-        self.quantity_input.setValue(1)
+        self.quantity_input.setMaximum(100_000_000)
+        self.quantity_input.setFixedWidth(100)
 
-        add_button = QPushButton("Thêm thuốc")
-        add_button.clicked.connect(self.add_medicine)
-        add_button.setStyleSheet("""
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-        """)
+        self.cost_input = QDoubleSpinBox()
+        self.cost_input.setPrefix("Giá vốn: ")
+        self.cost_input.setMaximum(100_000_000)
+        self.cost_input.setDecimals(0)
 
-        delete_button = QPushButton("Xoá thuốc đã chọn")
-        delete_button.clicked.connect(self.delete_selected)
-        delete_button.setStyleSheet("""
-            background-color: #f44336;
-            color: white;
-            font-weight: bold;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-        """)
+        self.sell_input = QDoubleSpinBox()
+        self.sell_input.setPrefix("Giá bán: ")
+        self.sell_input.setMaximum(100_000_000)
+        self.sell_input.setDecimals(0)
+
+        stock_button = QPushButton("Nhập kho")
+        stock_button.setStyleSheet("background-color: green; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
+        stock_button.clicked.connect(self.add_medicine)
+
+        delete_button = QPushButton("Xoá thuốc")
+        delete_button.setStyleSheet("background-color: red; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
+        delete_button.clicked.connect(self.delete_selected_medicine)
 
         input_layout = QHBoxLayout()
         input_layout.addWidget(self.name_input)
         input_layout.addWidget(self.date_input)
         input_layout.addWidget(self.quantity_input)
-        input_layout.addWidget(add_button)
+        input_layout.addWidget(self.cost_input)
+        input_layout.addWidget(self.sell_input)
+        input_layout.addWidget(stock_button)
         input_layout.addWidget(delete_button)
-        layout.addLayout(input_layout)
 
-        # Bảng thuốc
-        self.table = QTableWidget()
-        self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["Tên thuốc", "Hạn sử dụng", "Số lượng"])
-        self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.table.cellChanged.connect(self.handle_cell_change)
+        self.stock_table = QTableWidget()
+        self.stock_table.setColumnCount(6)
+        self.stock_table.setHorizontalHeaderLabels(["Tên thuốc", "Hạn sử dụng", "Số lượng", "Giá vốn", "Giá bán", "Ngày nhập"])
+        self.stock_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.stock_table.setEditTriggers(QTableWidget.NoEditTriggers)
 
-        header = self.table.horizontalHeader()
-        header.setStyleSheet("""
-            QHeaderView::section {
-                background-color: #D3D3D3;
-                color: black;
-                font-weight: bold;
-                font-size: 16px;
-                padding: 8px;
-            }
-        """)
+        stock_layout.addLayout(input_layout)
+        stock_layout.addWidget(self.stock_table)
+        self.tabs.addTab(self.stock_tab, "Nhập kho")
 
-        layout.addWidget(self.table)
-        self.setLayout(layout)
+    def init_profit_tab(self):
+        self.profit_tab = QWidget()
+        profit_layout = QVBoxLayout(self.profit_tab)
+
+        filter_layout = QHBoxLayout()
+        self.filter_combo = QComboBox()
+        self.filter_combo.addItems(["Tất cả", "Hôm nay", "Tuần này", "Tháng này", "Năm nay"])
+        self.filter_combo.currentIndexChanged.connect(self.update_profit_table)
+        filter_layout.addWidget(QLabel("Xem theo: "))
+        filter_layout.addWidget(self.filter_combo)
+
+        self.total_label = QLabel("Tổng lợi nhuận: 0 đ")
+        font = self.total_label.font()
+        font.setPointSize(16)
+        self.total_label.setFont(font)
+
+        self.profit_table = QTableWidget()
+        self.profit_table.setColumnCount(6)
+        self.profit_table.setHorizontalHeaderLabels(["Ngày", "Tên thuốc", "Số lượng", "Giá vốn", "Giá bán", "Lợi nhuận"])
+        self.profit_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        profit_layout.addLayout(filter_layout)
+        profit_layout.addWidget(self.total_label)
+        profit_layout.addWidget(self.profit_table)
+        self.tabs.addTab(self.profit_tab, "Lợi nhuận")
 
     def add_medicine(self):
         name = self.name_input.text().strip()
-        date_str = self.date_input.date().toString("dd/MM/yyyy")
+        date = self.date_input.date().toString("dd/MM/yyyy")
         quantity = self.quantity_input.value()
+        cost = self.cost_input.value()
+        sell = self.sell_input.value()
+        import_date = datetime.now().strftime("%d/%m/%Y")
 
         if not name:
             QMessageBox.warning(self, "Lỗi", "Vui lòng nhập tên thuốc!")
             return
 
-        try:
-            expiry_date = datetime.strptime(date_str, "%d/%m/%Y")
-            if expiry_date < datetime.today():
-                QMessageBox.warning(self, "Lỗi", "Hạn sử dụng phải lớn hơn hoặc bằng hôm nay!")
-                return
-        except ValueError:
-            QMessageBox.warning(self, "Lỗi", "Định dạng ngày không hợp lệ! (dd/MM/yyyy)")
-            return
-
-        if name not in self.suggestions:
-            self.suggestions.append(name)
-            self.save_suggestions()
-            self.completer.model().setStringList(self.suggestions)
-
         for med in self.medicines:
-            if med["name"] == name and med["expiry"] == date_str:
+            if med["name"] == name and med["expiry"] == date:
                 med["quantity"] += quantity
-                self.save_data()
-                self.update_table()
-                self.name_input.clear()
-                self.search_input.clear()
-                return
-
-        existing_names = [m["name"] for m in self.medicines]
-        new_name = name
-        suffix = 1
-        while new_name in existing_names:
-            suffix += 1
-            new_name = f"{name} {suffix}"
-
-        self.medicines.append({
-            "name": new_name,
-            "expiry": date_str,
-            "quantity": quantity
-        })
+                med["cost_price"] = cost
+                med["sell_price"] = sell
+                break
+        else:
+            self.medicines.append({
+                "name": name,
+                "expiry": date,
+                "quantity": quantity,
+                "cost_price": cost,
+                "sell_price": sell,
+                "import_date": import_date
+            })
 
         self.save_data()
-        self.update_table()
+        self.update_stock_table()
         self.name_input.clear()
-        self.search_input.clear()
 
-    def update_table(self):
-        today = datetime.today()
+    def sell_medicine(self):
+        name = self.sell_name_input.text().strip()
+        sell_qty = self.sell_quantity_input.value()
 
-        def priority(med):
-            try:
-                expiry = datetime.strptime(med["expiry"], "%d/%m/%Y")
-                days_left = (expiry - today).days
-                if days_left < 0:
-                    return 0
-                elif days_left <= 3:
-                    return 1
-                elif days_left <= 90:
-                    return 2
-                else:
-                    return 3
-            except:
-                return 4
+        if not name:
+            QMessageBox.warning(self, "Lỗi", "Vui lòng nhập tên thuốc để bán!")
+            return
 
-        self.medicines.sort(key=priority)
-        self.filtered_medicines = self.medicines
-        self.filter_table()
+        matches = [m for m in self.medicines if m["name"].lower() == name.lower() and m["quantity"] > 0]
+        if not matches:
+            QMessageBox.warning(self, "Lỗi", "Không tìm thấy thuốc trong kho hoặc đã hết!")
+            return
 
-    def filter_table(self):
-        keyword = self.search_input.text().strip().lower()
-        today = datetime.today()
-        filtered = [m for m in self.medicines if keyword in m["name"].lower()]
+        matches.sort(key=lambda m: datetime.strptime(m["expiry"], "%d/%m/%Y"))
+        qty_left = sell_qty
+        for med in matches:
+            if qty_left == 0:
+                break
+            sold = min(med["quantity"], qty_left)
+            med["quantity"] -= sold
+            qty_left -= sold
+            self.sales.append({
+                "name": med["name"],
+                "expiry": med["expiry"],
+                "quantity": sold,
+                "cost_price": med["cost_price"],
+                "sell_price": med["sell_price"],
+                "date": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            })
 
-        self.table.blockSignals(True)
-        self.table.setRowCount(len(filtered))
+        if qty_left > 0:
+            QMessageBox.warning(self, "Lỗi", "Không đủ thuốc trong kho để bán toàn bộ số lượng yêu cầu!")
 
-        for row, med in enumerate(filtered):
-            name_item = QTableWidgetItem(med["name"])
+        self.save_data()
+        self.save_sales()
+        self.update_stock_table()
+        self.update_profit_table()
+        self.update_sell_history_table(self.sales)
+
+    def delete_selected_medicine(self):
+        row = self.stock_table.currentRow()
+        if row < 0 or row >= len(self.medicines):
+            QMessageBox.warning(self, "Lỗi", "Vui lòng chọn một thuốc để xoá.")
+            return
+
+        med = self.medicines[row]
+        reply = QMessageBox.question(self, "Xác nhận xoá", f"Bạn có chắc muốn xoá thuốc '{med['name']}' hạn {med['expiry']}?", QMessageBox.Yes | QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            del self.medicines[row]
+            self.save_data()
+            self.update_stock_table()
+
+    def update_stock_table(self):
+        self.medicines.sort(key=lambda m: datetime.strptime(m["expiry"], "%d/%m/%Y"))
+        self.stock_table.setRowCount(len(self.medicines))
+        for i, med in enumerate(self.medicines):
+            self.stock_table.setItem(i, 0, QTableWidgetItem(med["name"]))
             expiry_item = QTableWidgetItem(med["expiry"])
-            quantity_item = QTableWidgetItem(str(med.get("quantity", 1)))
+            days_left = (datetime.strptime(med["expiry"], "%d/%m/%Y") - datetime.now()).days
+            if days_left < 0:
+                expiry_item.setBackground(QBrush(QColor("black")))
+                expiry_item.setForeground(QBrush(QColor("white")))
+            elif days_left <= 3:
+                expiry_item.setBackground(QBrush(QColor("red")))
+            elif days_left <= 7:
+                expiry_item.setBackground(QBrush(QColor("orange")))
+            self.stock_table.setItem(i, 1, expiry_item)
+            qty_item = QTableWidgetItem(str(med["quantity"]))
+            if med["quantity"] <= self.low_stock_threshold:
+                qty_item.setBackground(QBrush(QColor("yellow")))
+            self.stock_table.setItem(i, 2, qty_item)
+            self.stock_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(med['cost_price'])} đ"))
+            self.stock_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(med['sell_price'])} đ"))
+            self.stock_table.setItem(i, 5, QTableWidgetItem(med.get("import_date", "-")))
 
-            try:
-                expiry_date = datetime.strptime(med["expiry"], "%d/%m/%Y")
-                days_left = (expiry_date - today).days
+        completer = QCompleter([m["name"] for m in self.medicines])
+        self.sell_name_input.setCompleter(completer)
+        self.name_input.setCompleter(completer)
 
-                if days_left < 0:
-                    color = QColor(120, 120, 120)   # Hết hạn
-                elif days_left <= 3:
-                    color = QColor(255, 100, 100)   # Đỏ
-                elif days_left <= 90:
-                    color = QColor(255, 200, 0)     # Cam
-                else:
-                    color = QColor(255, 255, 255)   # Bình thường
+    def update_profit_table(self):
+        total_profit = 0
+        self.profit_table.setRowCount(0)
+        filtered_sales = []
+        filter_option = self.filter_combo.currentText()
+        for sale in self.sales:
+            sale_dt = datetime.strptime(sale["date"], "%d/%m/%Y %H:%M:%S")
+            now = datetime.now()
+            add = filter_option == "Tất cả" or \
+                  (filter_option == "Hôm nay" and sale_dt.date() == now.date()) or \
+                  (filter_option == "Tuần này" and sale_dt.isocalendar()[1] == now.isocalendar()[1]) or \
+                  (filter_option == "Tháng này" and sale_dt.month == now.month and sale_dt.year == now.year) or \
+                  (filter_option == "Năm nay" and sale_dt.year == now.year)
+            if add:
+                filtered_sales.append(sale)
 
-                for item in [name_item, expiry_item, quantity_item]:
-                    item.setBackground(color)
+        self.profit_table.setRowCount(len(filtered_sales))
+        for i, sale in enumerate(filtered_sales):
+            self.profit_table.setItem(i, 0, QTableWidgetItem(sale["date"]))
+            self.profit_table.setItem(i, 1, QTableWidgetItem(sale["name"]))
+            self.profit_table.setItem(i, 2, QTableWidgetItem(str(sale["quantity"])))
+            self.profit_table.setItem(i, 3, QTableWidgetItem(f"{format_currency(sale['cost_price'])} đ"))
+            self.profit_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(sale['sell_price'])} đ"))
+            profit = (sale["sell_price"] - sale["cost_price"]) * sale["quantity"]
+            total_profit += profit
+            self.profit_table.setItem(i, 5, QTableWidgetItem(f"{format_currency(profit)} đ"))
 
-            except Exception as e:
-                print("Lỗi ngày:", e)
+        self.total_label.setText(f"Tổng lợi nhuận: {format_currency(total_profit)} đ")
 
-            self.table.setItem(row, 0, name_item)
-            self.table.setItem(row, 1, expiry_item)
-            self.table.setItem(row, 2, quantity_item)
-
-        self.table.blockSignals(False)
-
-    def handle_cell_change(self, row, column):
-        try:
-            name = self.table.item(row, 0).text().strip()
-            expiry = self.table.item(row, 1).text().strip()
-            quantity = int(self.table.item(row, 2).text())
-
-            actual_row = self.medicines.index(
-                next(m for m in self.medicines if m["name"] == name)
-            )
-            self.medicines[actual_row] = {
-                "name": name,
-                "expiry": expiry,
-                "quantity": quantity
-            }
-
-            self.save_data()
-            self.update_table()
-        except Exception as e:
-            print("Lỗi chỉnh sửa ô:", e)
-
-    def delete_selected(self):
-        selected = self.table.selectedItems()
-        if selected:
-            row = selected[0].row()
-            name = self.table.item(row, 0).text()
-            self.medicines = [m for m in self.medicines if m["name"] != name]
-            self.save_data()
-            self.update_table()
-        else:
-            QMessageBox.information(self, "Thông báo", "Vui lòng chọn thuốc để xoá.")
+    def update_sell_history_table(self, entries):
+        self.sell_history_table.setRowCount(len(entries))
+        for i, sale in enumerate(entries):
+            self.sell_history_table.setItem(i, 0, QTableWidgetItem(sale["name"]))
+            self.sell_history_table.setItem(i, 1, QTableWidgetItem(str(sale["quantity"])))
+            self.sell_history_table.setItem(i, 2, QTableWidgetItem(sale["date"]))
 
     def load_data(self):
         if os.path.exists(DATA_FILE):
-            try:
-                with open(DATA_FILE, 'r', encoding='utf-8') as f:
-                    self.medicines = json.load(f)
-            except:
-                self.medicines = []
-        self.update_table()
+            with open(DATA_FILE, 'r', encoding='utf-8') as f:
+                self.medicines = json.load(f)
 
     def save_data(self):
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(self.medicines, f, ensure_ascii=False, indent=2)
 
-    def load_suggestions(self):
-        if os.path.exists(SUGGESTION_FILE):
-            try:
-                with open(SUGGESTION_FILE, 'r', encoding='utf-8') as f:
-                    self.suggestions = json.load(f)
-                    self.completer.model().setStringList(self.suggestions)
-            except:
-                self.suggestions = []
+    def load_sales(self):
+        if os.path.exists(SALES_FILE):
+            with open(SALES_FILE, 'r', encoding='utf-8') as f:
+                self.sales = json.load(f)
 
-    def save_suggestions(self):
-        with open(SUGGESTION_FILE, 'w', encoding='utf-8') as f:
-            json.dump(self.suggestions, f, ensure_ascii=False, indent=2)
+    def save_sales(self):
+        with open(SALES_FILE, 'w', encoding='utf-8') as f:
+            json.dump(self.sales, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -1,4 +1,4 @@
-('D:\\30_WorkSpace\\Project_QLThuoc\\build\\medicine_manager\\PYZ-00.pyz',
+('D:\\30_WorkSpace\\Project_QLThuoc\\PM_QL_NhaThuoc\\build\\medicine_manager\\PYZ-00.pyz',
  [('PyQt5',
    'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\PyQt5\\__init__.py',
    'PYMODULE'),

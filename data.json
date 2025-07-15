@@ -1,42 +1,9 @@
 [
   {
-    "name": "BCS",
-    "expiry": "10/03/2026",
-    "quantity": 232
-  },
-  {
-    "name": "Thuốc C",
-    "expiry": "25/02/2026",
-    "quantity": 1
-  },
-  {
-    "name": "Thuốc A 3",
-    "expiry": "22/04/2026",
-    "quantity": 0
-  },
-  {
-    "name": "abcgcg",
-    "expiry": "10/03/2026",
-    "quantity": 1
-  },
-  {
-    "name": "decogen",
-    "expiry": "10/03/2026",
-    "quantity": 250
-  },
-  {
-    "name": "decolgen",
-    "expiry": "31/03/2026",
-    "quantity": 86
-  },
-  {
-    "name": "sidenafil 100",
-    "expiry": "31/03/2026",
-    "quantity": 100
-  },
-  {
-    "name": "Thuốc F",
+    "name": "Thuốc A",
     "expiry": "14/07/2025",
-    "quantity": 0
+    "quantity": 986,
+    "cost_price": 10000.0,
+    "sell_price": 15000.0
   }
 ]

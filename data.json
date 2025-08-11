@@ -1,0 +1,38 @@
+[
+  {
+    "name": "TAAA",
+    "expiry": "11/08/2025",
+    "quantity": 0,
+    "unit": "Viên",
+    "cost_price": 150.0,
+    "sell_price": 160.0,
+    "import_date": "11/08/2025"
+  },
+  {
+    "name": "ABC",
+    "expiry": "11/08/2025",
+    "quantity": 0,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "import_date": "11/08/2025"
+  },
+  {
+    "name": "ACCC",
+    "expiry": "11/08/2025",
+    "quantity": 0,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "import_date": "11/08/2025"
+  },
+  {
+    "name": "ccc",
+    "expiry": "11/08/2025",
+    "quantity": 60,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "import_date": "11/08/2025"
+  }
+]

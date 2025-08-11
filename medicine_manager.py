@@ -44,7 +44,7 @@ class MedicineManager(QWidget):
 
         self.init_ui()
         self.update_stock_table()
-        self.update_profit_table()
+        self.update_profit_table()       # cũng tính & hiển thị vốn
         self.update_sell_history_table(self.sales)
         self.update_profit_chart()
 
@@ -200,6 +200,15 @@ class MedicineManager(QWidget):
         self.total_label.setFont(font)
         top_layout.addWidget(self.total_label)
 
+        # >>> THÊM: Hiển thị VỐN đang bỏ ra (tổng tồn * giá vốn)
+        self.capital_label = QLabel("Vốn đang bỏ ra: 0 đ")
+        cap_font = self.capital_label.font()
+        cap_font.setPointSize(12)
+        self.capital_label.setFont(cap_font)
+        self.capital_label.setStyleSheet("color: #333;")
+        top_layout.addWidget(self.capital_label)
+        # <<<
+
         # Bảng chi tiết
         self.profit_table = QTableWidget()
         self.profit_table.setColumnCount(7)
@@ -260,6 +269,7 @@ class MedicineManager(QWidget):
 
         self.save_data()
         self.update_stock_table()
+        self.update_profit_table()   # cập nhật vốn
         self.name_input.clear()
 
     def sell_medicine(self):
@@ -318,7 +328,7 @@ class MedicineManager(QWidget):
         self.save_data()
         self.save_sales()
         self.update_stock_table()
-        self.update_profit_table()
+        self.update_profit_table()       # vốn thay đổi khi tồn kho giảm
         self.update_sell_history_table(self.sales)
         self.update_profit_chart()
 
@@ -355,6 +365,7 @@ class MedicineManager(QWidget):
             del self.medicines[row]
             self.save_data()
             self.update_stock_table()
+            self.update_profit_table()   # vốn thay đổi khi xóa thuốc
             self.update_profit_chart()
 
     # ===================== CẬP NHẬT BẢNG =====================
@@ -399,6 +410,16 @@ class MedicineManager(QWidget):
         completer2.setCompletionMode(QCompleter.PopupCompletion)
         self.name_input.setCompleter(completer2)
 
+    def _calc_invested_capital(self):
+        # Vốn = tổng (tồn * giá vốn) toàn bộ kho
+        total = 0.0
+        for m in self.medicines:
+            try:
+                total += float(m.get("cost_price", 0)) * int(m.get("quantity", 0))
+            except Exception:
+                pass
+        return total
+
     def update_profit_table(self):
         total_profit = 0
         self.profit_table.setRowCount(len(self.sales))
@@ -416,6 +437,11 @@ class MedicineManager(QWidget):
             self.profit_table.setItem(i, 6, QTableWidgetItem(f"{format_currency(profit)} đ"))
 
         self.total_label.setText(f"Tổng lợi nhuận: {format_currency(total_profit)} đ")
+
+        # >>> THÊM: cập nhật vốn đang bỏ ra
+        capital = self._calc_invested_capital()
+        self.capital_label.setText(f"Vốn đang bỏ ra: {format_currency(capital)} đ")
+        # <<<
 
     def update_sell_history_table(self, entries):
         reversed_entries = list(reversed(entries))

@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
     QGridLayout, QAbstractItemView
 )
 from PyQt5.QtCore import Qt, QDate
+# noinspection PyUnresolvedReferences
 from PyQt5.QtGui import QFont, QColor, QBrush
 from datetime import datetime, date, timedelta
 
@@ -35,7 +36,12 @@ class MedicineManager(QWidget):
         self.setWindowTitle("Phần mềm quản lý thuốc Hồng Phúc")
         self.resize(1200, 700)
 
+        # ========= Cấu hình =========
         self.low_stock_threshold = 5
+        self.expiry_urgent_days = 7      # 1 tuần -> nền đỏ
+        self.expiry_warn_days   = 120    # ~4 tháng -> nền cam
+
+        # ========= Dữ liệu =========
         self.medicines = []
         self.sales = []
 
@@ -172,6 +178,11 @@ class MedicineManager(QWidget):
         stock_button.setStyleSheet("background-color: green; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
         stock_button.clicked.connect(self.add_medicine)
 
+        # NÚT SỬA GIÁ (MỚI)
+        edit_button = QPushButton("Sửa giá")
+        edit_button.setStyleSheet("background-color:#0b74de; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
+        edit_button.clicked.connect(self.edit_price_selected_medicine)
+
         delete_button = QPushButton("Xoá thuốc")
         delete_button.setStyleSheet("background-color: red; color: white; font-weight: bold; font-size: 14pt; padding: 6px 12px; border-radius: 6px;")
         delete_button.clicked.connect(self.delete_selected_medicine)
@@ -183,6 +194,7 @@ class MedicineManager(QWidget):
         form_layout.addWidget(self.cost_input)
         form_layout.addWidget(self.sell_input)
         form_layout.addWidget(stock_button)
+        form_layout.addWidget(edit_button)   # <— thêm nút SỬA GIÁ
         form_layout.addWidget(delete_button)
 
         search_layout = QHBoxLayout()
@@ -216,7 +228,9 @@ class MedicineManager(QWidget):
 
         top_layout = QVBoxLayout()
         self.total_label = QLabel("Tổng lợi nhuận: 0 đ")
-        f = self.total_label.font(); f.setPointSize(16); self.total_label.setFont(f)
+        f = self.total_label.font(); f.setPointSize(16)
+        self.total_label.setFont(f)
+        self.total_label.setStyleSheet("color:#ff6600;")
 
         self.sales_label = QLabel("Tổng doanh số: 0 đ")
         self.sales_label.setFont(self.total_label.font())
@@ -229,7 +243,7 @@ class MedicineManager(QWidget):
         filter_layout = QHBoxLayout()
         filter_layout.addWidget(QLabel("Xem theo:"))
         self.period_combo = QComboBox(); self.period_combo.addItems(["Ngày", "Tuần", "Tháng", "Năm"])
-        self.period_combo.currentIndexChanged.connect(self.update_profit_chart)
+        self.period_combo.currentIndexChanged.connect(self.on_period_changed)
         filter_layout.addWidget(self.period_combo); filter_layout.addStretch()
 
         top_layout.addWidget(self.total_label, alignment=Qt.AlignLeft)
@@ -251,6 +265,11 @@ class MedicineManager(QWidget):
         profit_layout.addWidget(self.canvas)
         profit_layout.addWidget(self.profit_table)
         self.tabs.addTab(self.profit_tab, "Lợi nhuận")
+
+    def on_period_changed(self):
+        """Khi đổi Ngày/Tuần/Tháng/Năm -> cập nhật biểu đồ, bảng, và 3 nhãn."""
+        self.update_profit_chart()
+        self.update_profit_table()
 
     # ===================== XỬ LÝ =====================
     def add_new_unit(self):
@@ -296,6 +315,7 @@ class MedicineManager(QWidget):
         self.save_data()
         self.update_stock_table()
         self.update_profit_table()
+        self.update_profit_chart()
         self.name_input.clear()
 
     def sell_medicine(self):
@@ -345,7 +365,7 @@ class MedicineManager(QWidget):
                 "unit": med.get("unit", "Viên"),
                 "cost_price": med["cost_price"],
                 "sell_price": med["sell_price"],
-                "discount": discount if qty_left == 0 else 0,  # chỉ áp dụng giảm giá cho dòng cuối
+                "discount": discount if qty_left == 0 else 0,  # chỉ áp dụng giảm cho dòng cuối
                 "date": datetime.now().strftime("%H:%M:%S %d/%m/%Y")
             })
 
@@ -374,6 +394,74 @@ class MedicineManager(QWidget):
                 if m["name"] == chosen:
                     self.sell_unit_combo.setCurrentText(m.get("unit", "Viên"))
                     break
+
+    # =============== SỬA GIÁ & LƯU NGAY (MỚI) ===============
+    def edit_price_selected_medicine(self):
+        row = self.stock_table.currentRow()
+
+        # Dựng lại danh sách hiển thị (kể cả khi đang lọc)
+        try:
+            q = self.stock_search_input.text().strip().lower()
+        except Exception:
+            q = ""
+        if q:
+            rows = [
+                m for m in self.medicines
+                if q in m.get("name", "").lower()
+                or q in m.get("unit", "").lower()
+                or q in m.get("expiry", "").lower()
+            ]
+        else:
+            rows = list(self.medicines)
+
+        if row < 0 or row >= len(rows):
+            QMessageBox.warning(self, "Lỗi", "Vui lòng chọn một thuốc để sửa giá.")
+            return
+
+        med = rows[row]
+        current_cost = float(med.get("cost_price", 0))
+        current_sell = float(med.get("sell_price", 0))
+
+        # Nhập giá vốn mới
+        new_cost, ok1 = QInputDialog.getDouble(
+            self, "Sửa giá vốn", f"Giá vốn mới cho '{med['name']}' (đ):",
+            current_cost, 0, 100_000_000, 0
+        )
+        if not ok1:
+            return
+
+        # Nhập giá bán mới
+        new_sell, ok2 = QInputDialog.getDouble(
+            self, "Sửa giá bán", f"Giá bán mới cho '{med['name']}' (đ):",
+            current_sell, 0, 100_000_000, 0
+        )
+        if not ok2:
+            return
+
+        # Hỏi áp dụng cho tất cả lô cùng tên & đơn vị?
+        apply_all = QMessageBox.question(
+            self, "Áp dụng hàng loạt?",
+            "Áp dụng giá mới cho TẤT CẢ các lô cùng TÊN & ĐƠN VỊ?",
+            QMessageBox.Yes | QMessageBox.No
+        ) == QMessageBox.Yes
+
+        if apply_all:
+            for m in self.medicines:
+                if m.get("name") == med.get("name") and m.get("unit") == med.get("unit"):
+                    m["cost_price"] = new_cost
+                    m["sell_price"] = new_sell
+        else:
+            # Chỉ cập nhật lô đang chọn
+            idx = self.medicines.index(med)
+            self.medicines[idx]["cost_price"] = new_cost
+            self.medicines[idx]["sell_price"] = new_sell
+
+        # LƯU NGAY vào "database" (data.json) + refresh
+        self.save_data()
+        self.update_stock_table()
+        self.update_profit_table()
+
+        QMessageBox.information(self, "Thành công", "Đã cập nhật và lưu giá mới.")
 
     def delete_selected_medicine(self):
         row = self.stock_table.currentRow()
@@ -439,11 +527,13 @@ class MedicineManager(QWidget):
                 days_left = (expiry_date - datetime.now()).days
             except Exception:
                 days_left = 999999
+
             if days_left < 0:
-                expiry_item.setBackground(QBrush(QColor("black"))); expiry_item.setForeground(QBrush(QColor("white")))
-            elif days_left <= 3:
+                expiry_item.setBackground(QBrush(QColor("black")))
+                expiry_item.setForeground(QBrush(QColor("white")))
+            elif days_left <= self.expiry_urgent_days:      # <= 1 tuần -> đỏ
                 expiry_item.setBackground(QBrush(QColor("red")))
-            elif days_left <= 7:
+            elif days_left <= self.expiry_warn_days:        # <= ~4 tháng -> cam
                 expiry_item.setBackground(QBrush(QColor("orange")))
             self.stock_table.setItem(i, 1, expiry_item)
 
@@ -476,24 +566,53 @@ class MedicineManager(QWidget):
                 pass
         return total
 
+    # --------- HỖ TRỢ LỌC THEO KỲ ---------
+    def _period_key(self, dt: datetime, period: str) -> str:
+        if period == "Ngày":
+            return dt.strftime("%d/%m/%Y")
+        elif period == "Tuần":
+            iso_year, iso_week, _ = dt.isocalendar()
+            return f"W{iso_week:02d}/{iso_year}"
+        elif period == "Tháng":
+            return dt.strftime("%m/%Y")
+        else:  # Năm
+            return dt.strftime("%Y")
+
+    def _filtered_sales_for_current_bucket(self):
+        """Lọc đúng 'hôm nay' / 'tuần này' / 'tháng này' / 'năm nay' theo kỳ đang chọn."""
+        period = self.period_combo.currentText()
+        today = datetime.now()
+        target_key = self._period_key(today, period)
+
+        filtered = []
+        for s in self.sales:
+            try:
+                dt = datetime.strptime(s.get("date", ""), "%H:%M:%S %d/%m/%Y")
+            except Exception:
+                continue
+            if self._period_key(dt, period) == target_key:
+                filtered.append(s)
+        return filtered
+
     # ===================== CẬP NHẬT LỢI NHUẬN/DOANH SỐ =====================
     def update_profit_table(self):
-        total_profit = 0.0
-        total_sales_amount = 0.0  # Tổng doanh số (SAU giảm giá). Nếu muốn TRƯỚC giảm giá, xem chú thích bên dưới.
+        sales_in_bucket = self._filtered_sales_for_current_bucket()
 
-        self.profit_table.setRowCount(len(self.sales))
-        for i, sale in enumerate(self.sales):
+        total_profit = 0.0
+        total_sales_amount = 0.0  # Doanh số SAU giảm giá (tiền thực thu).
+        self.profit_table.setRowCount(len(sales_in_bucket))
+
+        for i, sale in enumerate(sales_in_bucket):
             qty        = int(sale.get("quantity", 0))
             unit_price = float(sale.get("sell_price", 0))
             discount   = float(sale.get("discount", 0))
             cost_price = float(sale.get("cost_price", 0))
 
-            # Doanh số sau giảm giá:
+            # Doanh số sau giảm giá (nếu muốn trước giảm giá: sales_amount = unit_price * qty)
             sales_amount = unit_price * qty - discount
-            # Nếu muốn TRƯỚC giảm giá: sales_amount = unit_price * qty
             total_sales_amount += sales_amount
 
-            # Lợi nhuận = (doanh số sau giảm) - (giá vốn)
+            # Lợi nhuận = doanh số sau giảm - giá vốn
             profit = sales_amount - (cost_price * qty)
             total_profit += profit
 

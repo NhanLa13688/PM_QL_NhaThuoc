@@ -29,10 +29,19 @@
   {
     "name": "ccc",
     "expiry": "11/08/2025",
-    "quantity": 60,
+    "quantity": 57,
     "unit": "Viên",
     "cost_price": 15000.0,
     "sell_price": 16000.0,
     "import_date": "11/08/2025"
+  },
+  {
+    "name": "aaaccc",
+    "expiry": "12/08/2025",
+    "quantity": 0,
+    "unit": "Ống",
+    "cost_price": 10.0,
+    "sell_price": 11.0,
+    "import_date": "12/08/2025"
   }
 ]

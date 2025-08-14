@@ -304,5 +304,44 @@
     "cost_price": 15000.0,
     "sell_price": 16000.0,
     "date": "10:15:41 11/08/2025"
+  },
+  {
+    "name": "aaaccc",
+    "expiry": "12/08/2025",
+    "quantity": 1,
+    "unit": "Ống",
+    "cost_price": 10.0,
+    "sell_price": 11.0,
+    "date": "09:53:25 12/08/2025"
+  },
+  {
+    "name": "ccc",
+    "expiry": "11/08/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "discount": 100.0,
+    "date": "11:41:57 14/08/2025"
+  },
+  {
+    "name": "ccc",
+    "expiry": "11/08/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "discount": 1000.0,
+    "date": "13:02:14 14/08/2025"
+  },
+  {
+    "name": "ccc",
+    "expiry": "11/08/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 15000.0,
+    "sell_price": 16000.0,
+    "discount": 0.0,
+    "date": "13:02:42 14/08/2025"
   }
 ]

@@ -115,21 +115,18 @@ class MedicineManager(QWidget):
         self.sell_button.setMinimumWidth(110)
         self.sell_button.setMinimumHeight(36)
         self.sell_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.sell_button.clicked.connect(self.sell_medicine)  # GẮN SỰ KIỆN
+        self.sell_button.clicked.connect(self.sell_medicine)
 
-        # Đặt các widget vào lưới
         input_layout.addWidget(self.sell_name_input, 0, 0)
         input_layout.addWidget(self.sell_quantity_input, 0, 1)
         input_layout.addWidget(self.sell_unit_combo, 0, 2)
         input_layout.addWidget(self.discount_input, 0, 3)
         input_layout.addWidget(self.sell_button, 0, 4)
 
-        # Thêm spacer
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         input_layout.addWidget(spacer, 0, 5)
 
-        # Giãn cột
         input_layout.setColumnStretch(0, 2)
         input_layout.setColumnStretch(1, 1)
         input_layout.setColumnStretch(2, 1)
@@ -153,7 +150,6 @@ class MedicineManager(QWidget):
         self.stock_tab = QWidget()
         stock_layout = QVBoxLayout(self.stock_tab)
 
-        # Hàng nhập liệu
         form_layout = QHBoxLayout()
         self.name_input = QLineEdit(); self.name_input.setPlaceholderText("Tên thuốc")
         self.date_input = QDateEdit(); self.date_input.setCalendarPopup(True)
@@ -189,7 +185,6 @@ class MedicineManager(QWidget):
         form_layout.addWidget(stock_button)
         form_layout.addWidget(delete_button)
 
-        # Ô TÌM KIẾM
         search_layout = QHBoxLayout()
         self.stock_search_input = QLineEdit()
         self.stock_search_input.setPlaceholderText("Tìm kiếm trong kho (Tên thuốc / Đơn vị / HSD)")
@@ -201,14 +196,13 @@ class MedicineManager(QWidget):
         search_layout.addWidget(QLabel("Tìm:"))
         search_layout.addWidget(self.stock_search_input)
 
-        # Bảng kho
         self.stock_table = QTableWidget()
         self.stock_table.setColumnCount(7)
         self.stock_table.setHorizontalHeaderLabels(
             ["Tên thuốc", "Hạn sử dụng", "Số lượng", "Đơn vị", "Giá vốn", "Giá bán", "Ngày nhập"]
         )
         self.stock_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.stock_table.setEditTriggers(QAbstractItemView.NoEditTriggers)  # đúng enum
+        self.stock_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         stock_layout.addLayout(form_layout)
         stock_layout.addLayout(search_layout)
@@ -223,8 +217,13 @@ class MedicineManager(QWidget):
         top_layout = QVBoxLayout()
         self.total_label = QLabel("Tổng lợi nhuận: 0 đ")
         f = self.total_label.font(); f.setPointSize(16); self.total_label.setFont(f)
+
+        self.sales_label = QLabel("Tổng doanh số: 0 đ")
+        self.sales_label.setFont(self.total_label.font())
+        self.sales_label.setStyleSheet("color:#0066cc;")
+
         self.capital_label = QLabel("Vốn đang bỏ ra: 0 đ")
-        cf = self.capital_label.font(); cf.setPointSize(16); self.capital_label.setFont(cf)
+        self.capital_label.setFont(self.total_label.font())
         self.capital_label.setStyleSheet("color:#333;")
 
         filter_layout = QHBoxLayout()
@@ -234,6 +233,7 @@ class MedicineManager(QWidget):
         filter_layout.addWidget(self.period_combo); filter_layout.addStretch()
 
         top_layout.addWidget(self.total_label, alignment=Qt.AlignLeft)
+        top_layout.addWidget(self.sales_label, alignment=Qt.AlignLeft)
         top_layout.addWidget(self.capital_label, alignment=Qt.AlignLeft)
         top_layout.addLayout(filter_layout)
 
@@ -329,6 +329,7 @@ class MedicineManager(QWidget):
         self.sell_name_input.setText(chosen_name)
         self.sell_unit_combo.setCurrentText(matches[0].get("unit", "Viên"))
 
+        # Bán theo lô có HSD gần nhất trước
         matches.sort(key=lambda m: datetime.strptime(m["expiry"], "%d/%m/%Y"))
         qty_left = sell_qty
         for med in matches:
@@ -344,7 +345,7 @@ class MedicineManager(QWidget):
                 "unit": med.get("unit", "Viên"),
                 "cost_price": med["cost_price"],
                 "sell_price": med["sell_price"],
-                "discount": discount if qty_left == 0 else 0,  # giảm giá cho dòng cuối cùng
+                "discount": discount if qty_left == 0 else 0,  # chỉ áp dụng giảm giá cho dòng cuối
                 "date": datetime.now().strftime("%H:%M:%S %d/%m/%Y")
             })
 
@@ -412,14 +413,12 @@ class MedicineManager(QWidget):
 
     # ===================== CẬP NHẬT BẢNG (CÓ LỌC) =====================
     def update_stock_table(self):
-        # đọc từ ô tìm kiếm
         q = ""
         try:
             q = self.stock_search_input.text().strip().lower()
         except Exception:
             q = ""
 
-        # áp filter theo tên / đơn vị / hạn sử dụng
         if q:
             rows = [
                 m for m in self.medicines
@@ -477,26 +476,40 @@ class MedicineManager(QWidget):
                 pass
         return total
 
+    # ===================== CẬP NHẬT LỢI NHUẬN/DOANH SỐ =====================
     def update_profit_table(self):
-        total_profit = 0
+        total_profit = 0.0
+        total_sales_amount = 0.0  # Tổng doanh số (SAU giảm giá). Nếu muốn TRƯỚC giảm giá, xem chú thích bên dưới.
+
         self.profit_table.setRowCount(len(self.sales))
         for i, sale in enumerate(self.sales):
+            qty        = int(sale.get("quantity", 0))
+            unit_price = float(sale.get("sell_price", 0))
+            discount   = float(sale.get("discount", 0))
+            cost_price = float(sale.get("cost_price", 0))
+
+            # Doanh số sau giảm giá:
+            sales_amount = unit_price * qty - discount
+            # Nếu muốn TRƯỚC giảm giá: sales_amount = unit_price * qty
+            total_sales_amount += sales_amount
+
+            # Lợi nhuận = (doanh số sau giảm) - (giá vốn)
+            profit = sales_amount - (cost_price * qty)
+            total_profit += profit
+
             self.profit_table.setItem(i, 0, QTableWidgetItem(sale.get("date", "")))
             self.profit_table.setItem(i, 1, QTableWidgetItem(sale.get("name", "")))
-            self.profit_table.setItem(i, 2, QTableWidgetItem(str(sale.get("quantity", 0))))
+            self.profit_table.setItem(i, 2, QTableWidgetItem(str(qty)))
             self.profit_table.setItem(i, 3, QTableWidgetItem(sale.get("unit", "")))
-            cost = float(sale.get("cost_price", 0)) * int(sale.get("quantity", 0))
-            revenue = float(sale.get("sell_price", 0)) * int(sale.get("quantity", 0)) - float(sale.get("discount", 0))
-            profit = revenue - cost
-            total_profit += profit
-            self.profit_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(sale.get('cost_price', 0))} đ"))
-            self.profit_table.setItem(i, 5, QTableWidgetItem(f"{format_currency(sale.get('sell_price', 0))} đ"))
+            self.profit_table.setItem(i, 4, QTableWidgetItem(f"{format_currency(cost_price)} đ"))
+            self.profit_table.setItem(i, 5, QTableWidgetItem(f"{format_currency(unit_price)} đ"))
             self.profit_table.setItem(i, 6, QTableWidgetItem(f"{format_currency(profit)} đ"))
 
         self.total_label.setText(f"Tổng lợi nhuận: {format_currency(total_profit)} đ")
-        capital = self._calc_invested_capital()
-        self.capital_label.setText(f"Vốn đang bỏ ra: {format_currency(capital)} đ")
+        self.sales_label.setText(f"Tổng doanh số: {format_currency(total_sales_amount)} đ")
+        self.capital_label.setText(f"Vốn đang bỏ ra: {format_currency(self._calc_invested_capital())} đ")
 
+    # ===================== BẢNG LỊCH SỬ BÁN =====================
     def update_sell_history_table(self, entries):
         reversed_entries = list(reversed(entries))
         self.sell_history_table.setRowCount(len(reversed_entries))
@@ -552,7 +565,8 @@ class MedicineManager(QWidget):
             for _ in range(12):
                 labels.append(f"{m:02d}/{y}")
                 m -= 1
-                if m == 0: m = 12; y -= 1
+                if m == 0:
+                    m = 12; y -= 1
             labels.reverse()
         else:
             labels = [str(today.year - i) for i in range(4, -1, -1)]
@@ -597,7 +611,7 @@ class MedicineManager(QWidget):
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, rotation=0 if period == "Năm" else 45, ha="right")
         ax.set_ylabel("Lợi nhuận (đ)")
-        ax.set_title(f"Lợi nhuận theo {period.lower()}")  # đúng API
+        ax.set_title(f"Lợi nhuận theo {period.lower()}")
 
         ymax = max(values) if values else 1.0
         ax.set_ylim(0, ymax * 1.15)

@@ -1,194 +1,1322 @@
 [
   {
-    "name": "Thuốc A",
-    "expiry": "14/07/2025",
-    "quantity": 10,
-    "cost_price": 10000.0,
-    "sell_price": 15000.0,
-    "date": "14/08/2025 21:23:39"
+    "name": "panadol extra",
+    "expiry": "08/08/2027",
+    "quantity": 12,
+    "unit": "Viên",
+    "cost_price": 1300.0,
+    "sell_price": 1500.0,
+    "date": "13:24:07 08/08/2025"
   },
   {
-    "name": "Thuốc A",
-    "expiry": "14/07/2025",
-    "quantity": 3,
-    "cost_price": 10000.0,
-    "sell_price": 15000.0,
-    "date": "14/07/2025 21:23:44"
-  },
-  {
-    "name": "Thuốc A",
-    "expiry": "14/07/2025",
+    "name": "Thuốc liều 18k",
+    "expiry": "19/12/2027",
     "quantity": 1,
-    "cost_price": 10000.0,
+    "unit": "Ngày",
+    "cost_price": 1200.0,
+    "sell_price": 18000.0,
+    "date": "19:21:04 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 1200.0,
+    "sell_price": 18000.0,
+    "date": "19:28:14 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 10,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
     "sell_price": 15000.0,
-    "date": "14/07/2025 21:23:48"
+    "date": "19:29:08 11/08/2025"
   },
   {
-    "name": "Thuốc D",
-    "expiry": "24/07/2025",
-    "quantity": 52,
-    "cost_price": 10000.0,
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 3,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:29:22 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 3,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:29:31 11/08/2025"
+  },
+  {
+    "name": "dán hạ sốt",
+    "expiry": "05/01/2028",
+    "quantity": 6,
+    "unit": "Bịt",
+    "cost_price": 11666.0,
+    "sell_price": 15000.0,
+    "date": "19:36:02 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:39:04 11/08/2025"
+  },
+  {
+    "name": "Stadovas",
+    "expiry": "01/10/2028",
+    "quantity": 2,
+    "unit": "Vĩ",
+    "cost_price": 6666.0,
+    "sell_price": 8000.0,
+    "date": "19:39:18 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:45:13 11/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 5,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "19:46:18 11/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "19:48:18 11/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "19:48:36 11/08/2025"
+  },
+  {
+    "name": "rigervidone",
+    "expiry": "30/09/2026",
+    "quantity": 1,
+    "unit": "vĩ",
+    "cost_price": 17333.0,
+    "sell_price": 20000.0,
+    "date": "19:50:00 11/08/2025"
+  },
+  {
+    "name": "Viêm họng gia linh",
+    "expiry": "24/03/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 13500.0,
+    "sell_price": 18000.0,
+    "date": "19:50:22 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:51:06 11/08/2025"
+  },
+  {
+    "name": "dầu thái đỏ",
+    "expiry": "30/09/2028",
+    "quantity": 1,
+    "unit": "vĩ",
+    "cost_price": 29000.0,
     "sell_price": 32000.0,
-    "date": "15/07/2025 09:05:30"
+    "date": "19:52:02 11/08/2025"
   },
   {
-    "name": "Thuốc D",
-    "expiry": "24/07/2025",
-    "quantity": 10,
-    "cost_price": 10000.0,
+    "name": "dầu thái đỏ",
+    "expiry": "30/09/2028",
+    "quantity": 1,
+    "unit": "vĩ",
+    "cost_price": 29000.0,
     "sell_price": 32000.0,
-    "date": "15/07/2025 09:22:04"
+    "date": "19:52:11 11/08/2025"
   },
   {
-    "name": "Thuốc C",
-    "expiry": "01/01/2026",
-    "quantity": 10,
-    "cost_price": 2000.0,
+    "name": "dầu thái đỏ",
+    "expiry": "30/09/2028",
+    "quantity": 1,
+    "unit": "vĩ",
+    "cost_price": 29000.0,
+    "sell_price": 32000.0,
+    "date": "19:52:11 11/08/2025"
+  },
+  {
+    "name": "cortibion",
+    "expiry": "06/08/2026",
+    "quantity": 1,
+    "unit": "chai",
+    "cost_price": 16000.0,
+    "sell_price": 20000.0,
+    "date": "19:56:13 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 5,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "19:56:39 11/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "07:19:27 12/08/2025"
+  },
+  {
+    "name": "Eterogermina",
+    "expiry": "30/06/2026",
+    "quantity": 5,
+    "unit": "Ống",
+    "cost_price": 7900.0,
+    "sell_price": 9000.0,
+    "date": "07:49:55 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "07:50:24 12/08/2025"
+  },
+  {
+    "name": "Maxgel",
+    "expiry": "23/01/2026",
+    "quantity": 1,
+    "unit": "type",
+    "cost_price": 9500.0,
+    "sell_price": 14000.0,
+    "date": "07:50:43 12/08/2025"
+  },
+  {
+    "name": "Yousoon rau má",
+    "expiry": "01/09/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 23600.0,
+    "sell_price": 30000.0,
+    "date": "07:58:55 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "08:07:19 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 20k",
+    "expiry": "14/04/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 12000.0,
+    "sell_price": 20000.0,
+    "date": "08:12:56 12/08/2025"
+  },
+  {
+    "name": "Kẹo mentos cầu vồng",
+    "expiry": "14/04/2027",
+    "quantity": 2,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "08:13:13 12/08/2025"
+  },
+  {
+    "name": "Nước suối",
+    "expiry": "14/04/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 3750.0,
+    "sell_price": 5000.0,
+    "date": "08:13:32 12/08/2025"
+  },
+  {
+    "name": "Thạch ích nhi",
+    "expiry": "19/10/2026",
+    "quantity": 4,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "08:14:04 12/08/2025"
+  },
+  {
+    "name": "Khẩu trang  y tế gói 10 cái",
+    "expiry": "15/09/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
     "sell_price": 10000.0,
-    "date": "15/07/2025 09:32:19"
+    "date": "08:20:54 12/08/2025"
   },
   {
-    "name": "Thuốc C",
-    "expiry": "01/01/2026",
-    "quantity": 85,
+    "name": "Đường viên  chai 1200",
+    "expiry": "15/09/2026",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 68000.0,
+    "sell_price": 75000.0,
+    "date": "08:21:25 12/08/2025"
+  },
+  {
+    "name": "Kẹo xylitol vĩ 5k",
+    "expiry": "15/09/2026",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "08:51:02 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 1200.0,
+    "sell_price": 18000.0,
+    "date": "08:51:20 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 1200.0,
+    "sell_price": 18000.0,
+    "date": "08:51:28 12/08/2025"
+  },
+  {
+    "name": "Khẩu trang 5D",
+    "expiry": "15/01/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 3500.0,
+    "sell_price": 7000.0,
+    "date": "08:51:39 12/08/2025"
+  },
+  {
+    "name": "Băng cá nhân",
+    "expiry": "15/01/2028",
+    "quantity": 6,
+    "unit": "Miếng",
+    "cost_price": 590.0,
+    "sell_price": 800.0,
+    "date": "08:52:49 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "09:18:05 12/08/2025"
+  },
+  {
+    "name": "dầu thái đỏ",
+    "expiry": "30/09/2028",
+    "quantity": 1,
+    "unit": "vĩ",
+    "cost_price": 29000.0,
+    "sell_price": 32000.0,
+    "date": "09:18:42 12/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 6,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "10:39:24 12/08/2025"
+  },
+  {
+    "name": "Kẹo socola",
+    "expiry": "15/09/2026",
+    "quantity": 2,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 6000.0,
+    "date": "10:40:00 12/08/2025"
+  },
+  {
+    "name": "Kẹo pip C DHG",
+    "expiry": "15/01/2027",
+    "quantity": 1,
+    "unit": "Bịt",
     "cost_price": 2000.0,
+    "sell_price": 3000.0,
+    "date": "10:41:49 12/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 3,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "10:43:04 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "10:53:39 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "17:29:06 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "17:29:10 12/08/2025"
+  },
+  {
+    "name": "Kẹo albenlebe cây",
+    "expiry": "15/09/2026",
+    "quantity": 1,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "17:29:40 12/08/2025"
+  },
+  {
+    "name": "Kẹo socola",
+    "expiry": "15/09/2026",
+    "quantity": 1,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 6000.0,
+    "date": "17:29:51 12/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "17:30:02 12/08/2025"
+  },
+  {
+    "name": "xịt mũi JUMBO",
+    "expiry": "17/08/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 50500.0,
+    "sell_price": 55000.0,
+    "date": "17:31:52 12/08/2025"
+  },
+  {
+    "name": "BCS SATO",
+    "expiry": "17/08/2028",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 28000.0,
+    "sell_price": 50000.0,
+    "date": "17:33:11 12/08/2025"
+  },
+  {
+    "name": "Stadovas",
+    "expiry": "01/10/2028",
+    "quantity": 3,
+    "unit": "Vĩ",
+    "cost_price": 6666.0,
+    "sell_price": 8000.0,
+    "date": "17:33:43 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "17:34:59 12/08/2025"
+  },
+  {
+    "name": "Dentanalgi răng",
+    "expiry": "14/08/2027",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 14500.0,
+    "sell_price": 17000.0,
+    "date": "17:37:47 12/08/2025"
+  },
+  {
+    "name": "Bông gòn 25gr",
+    "expiry": "14/08/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 3700.0,
+    "sell_price": 6000.0,
+    "date": "17:38:27 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "17:39:21 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "17:39:59 12/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 4,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "14:10:17 13/08/2025"
+  },
+  {
+    "name": "Viêm họng gia linh",
+    "expiry": "24/03/2027",
+    "quantity": 2,
+    "unit": "Bịt",
+    "cost_price": 13500.0,
+    "sell_price": 18000.0,
+    "date": "14:10:39 13/08/2025"
+  },
+  {
+    "name": "Kẹo socola",
+    "expiry": "15/09/2026",
+    "quantity": 2,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 6000.0,
+    "date": "14:16:28 13/08/2025"
+  },
+  {
+    "name": "Kẹo dẻo albenlebe",
+    "expiry": "15/08/2026",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "14:16:45 13/08/2025"
+  },
+  {
+    "name": "Kẹo pip C DHG",
+    "expiry": "15/01/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 2000.0,
+    "sell_price": 3000.0,
+    "date": "14:16:59 13/08/2025"
+  },
+  {
+    "name": "Salonpas",
+    "expiry": "15/03/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 12500.0,
+    "sell_price": 15000.0,
+    "date": "14:49:29 13/08/2025"
+  },
+  {
+    "name": "panadol extra",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 1258.0,
+    "sell_price": 1300.0,
+    "date": "14:49:38 13/08/2025"
+  },
+  {
+    "name": "panadol extra",
+    "expiry": "19/12/2027",
+    "quantity": 11,
+    "unit": "Viên",
+    "cost_price": 1258.0,
+    "sell_price": 1300.0,
+    "date": "14:49:50 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "14:50:13 13/08/2025"
+  },
+  {
+    "name": "panadol extra",
+    "expiry": "19/12/2027",
+    "quantity": 12,
+    "unit": "Viên",
+    "cost_price": 1258.0,
+    "sell_price": 1300.0,
+    "date": "14:53:58 13/08/2025"
+  },
+  {
+    "name": "khăn ướt 10k",
+    "expiry": "15/03/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 5800.0,
     "sell_price": 10000.0,
-    "date": "15/07/2025 09:45:16"
+    "date": "14:54:13 13/08/2025"
   },
   {
-    "name": "Thuốc E",
-    "expiry": "15/07/2025",
-    "quantity": 85,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 09:46:09"
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "15:01:42 13/08/2025"
   },
   {
-    "name": "Thuốc E",
-    "expiry": "15/07/2025",
-    "quantity": 85,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 09:46:11"
+    "name": "Sủi live cool  bột nước mát",
+    "expiry": "11/05/2028",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 34000.0,
+    "sell_price": 42000.0,
+    "date": "15:02:55 13/08/2025"
   },
   {
-    "name": "Thuốc E",
-    "expiry": "15/07/2025",
-    "quantity": 9830,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 09:46:37"
+    "name": "sủi live cool chanh dây",
+    "expiry": "14/05/2028",
+    "quantity": 11,
+    "unit": "Gói",
+    "cost_price": 3400.0,
+    "sell_price": 4000.0,
+    "date": "15:03:15 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "kẹo milkita 2k",
+    "expiry": "15/06/2026",
+    "quantity": 14,
+    "unit": "Cây",
+    "cost_price": 1600.0,
+    "sell_price": 2000.0,
+    "date": "15:04:04 13/08/2025"
+  },
+  {
+    "name": "nước súc miệng TB trẻ em",
+    "expiry": "22/05/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 18750.0,
+    "sell_price": 25000.0,
+    "date": "15:06:21 13/08/2025"
+  },
+  {
+    "name": "khăn ướt 30k",
+    "expiry": "22/05/2028",
+    "quantity": 4,
+    "unit": "Chai",
+    "cost_price": 20000.0,
+    "sell_price": 30000.0,
+    "date": "15:07:15 13/08/2025"
+  },
+  {
+    "name": "beroca",
+    "expiry": "10/09/2026",
+    "quantity": 3,
+    "unit": "Viên",
+    "cost_price": 6800.0,
+    "sell_price": 8000.0,
+    "date": "15:08:55 13/08/2025"
+  },
+  {
+    "name": "live cool dưa gang",
+    "expiry": "19/03/2029",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:35"
+    "unit": "Gói",
+    "cost_price": 3200.0,
+    "sell_price": 4000.0,
+    "date": "15:12:27 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:35"
+    "name": "Siro ăn ngon tam long hộp xanh",
+    "expiry": "05/01/2028",
+    "quantity": 2,
+    "unit": "Hộp",
+    "cost_price": 84000.0,
+    "sell_price": 180000.0,
+    "date": "15:59:21 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:36"
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "16:04:59 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:36"
+    "name": "Thạch ích nhi",
+    "expiry": "19/10/2026",
+    "quantity": 4,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "date": "16:05:09 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:36"
+    "name": "Khẩu trang 9A",
+    "expiry": "15/12/2027",
+    "quantity": 4,
+    "unit": "Bịt",
+    "cost_price": 6800.0,
+    "sell_price": 10000.0,
+    "date": "16:05:20 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:36"
+    "name": "Xí mụi mặn",
+    "expiry": "29/07/2027",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 4444.0,
+    "sell_price": 10000.0,
+    "date": "16:07:40 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:47"
+    "name": "KY DUREX",
+    "expiry": "04/10/2027",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 78000.0,
+    "sell_price": 85000.0,
+    "date": "16:09:01 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "stacytine",
+    "expiry": "14/03/2028",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:47"
+    "unit": "Viên",
+    "cost_price": 750.0,
+    "sell_price": 1000.0,
+    "date": "16:09:19 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "stacytine",
+    "expiry": "14/03/2028",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:47"
+    "unit": "Viên",
+    "cost_price": 750.0,
+    "sell_price": 1000.0,
+    "date": "16:09:20 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "stacytine",
+    "expiry": "14/03/2028",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:48"
+    "unit": "Viên",
+    "cost_price": 750.0,
+    "sell_price": 1000.0,
+    "date": "16:09:21 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "STREPSIL COOL",
+    "expiry": "08/06/2027",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:49"
+    "unit": "Viên",
+    "cost_price": 3500.0,
+    "sell_price": 4000.0,
+    "date": "16:12:44 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:49"
+    "name": "Kẹo bảo thanh có đường",
+    "expiry": "21/09/2026",
+    "quantity": 5,
+    "unit": "Bịt",
+    "cost_price": 9500.0,
+    "sell_price": 11000.0,
+    "date": "16:14:56 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
-    "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:49"
+    "name": "panadol extra",
+    "expiry": "19/12/2027",
+    "quantity": 12,
+    "unit": "Viên",
+    "cost_price": 1258.0,
+    "sell_price": 1300.0,
+    "date": "16:15:12 13/08/2025"
   },
   {
-    "name": "Thuốc F",
-    "expiry": "15/07/2025",
+    "name": "Corbiere mg b6",
+    "expiry": "03/06/2027",
     "quantity": 10,
-    "cost_price": 100.0,
-    "sell_price": 200.0,
-    "date": "15/07/2025 10:44:49"
+    "unit": "Viên",
+    "cost_price": 1900.0,
+    "sell_price": 2500.0,
+    "date": "16:24:30 13/08/2025"
+  },
+  {
+    "name": "Kacetam 800",
+    "expiry": "25/04/2028",
+    "quantity": 30,
+    "unit": "Viên",
+    "cost_price": 520.0,
+    "sell_price": 800.0,
+    "date": "16:27:37 13/08/2025"
+  },
+  {
+    "name": "Xí mụi mặn",
+    "expiry": "29/07/2027",
+    "quantity": 5,
+    "unit": "Viên",
+    "cost_price": 4444.0,
+    "sell_price": 10000.0,
+    "date": "16:27:53 13/08/2025"
+  },
+  {
+    "name": "Kẹo coolair hủ",
+    "expiry": "03/11/2026",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 21000.0,
+    "sell_price": 25000.0,
+    "date": "16:33:56 13/08/2025"
+  },
+  {
+    "name": "listerin 250 ml",
+    "expiry": "20/04/2028",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 33000.0,
+    "sell_price": 38000.0,
+    "date": "16:35:36 13/08/2025"
+  },
+  {
+    "name": "Kẹo ngậm Doro",
+    "expiry": "01/10/2027",
+    "quantity": 2,
+    "unit": "Bịt",
+    "cost_price": 7500.0,
+    "sell_price": 12000.0,
+    "date": "16:37:09 13/08/2025"
+  },
+  {
+    "name": "Nước bù điện giải chai",
+    "expiry": "21/01/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 8000.0,
+    "sell_price": 10000.0,
+    "date": "16:40:46 13/08/2025"
+  },
+  {
+    "name": "listerin 250 ml",
+    "expiry": "20/04/2028",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 33000.0,
+    "sell_price": 38000.0,
+    "date": "16:53:28 13/08/2025"
+  },
+  {
+    "name": "Kẹo coolair hủ",
+    "expiry": "03/11/2026",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 21000.0,
+    "sell_price": 25000.0,
+    "date": "16:53:37 13/08/2025"
+  },
+  {
+    "name": "Dibetalic traphaco",
+    "expiry": "11/01/2027",
+    "quantity": 1,
+    "unit": "type",
+    "cost_price": 15000.0,
+    "sell_price": 20000.0,
+    "date": "17:46:57 13/08/2025"
+  },
+  {
+    "name": "Gòn 50gr",
+    "expiry": "21/01/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 15000.0,
+    "sell_price": 20000.0,
+    "date": "17:48:26 13/08/2025"
+  },
+  {
+    "name": "kẹo milkita 2k",
+    "expiry": "15/06/2026",
+    "quantity": 1,
+    "unit": "Cây",
+    "cost_price": 1600.0,
+    "sell_price": 2000.0,
+    "date": "18:07:20 13/08/2025"
+  },
+  {
+    "name": "gạc tiệt trùng miếng vừa",
+    "expiry": "21/06/2026",
+    "quantity": 2,
+    "unit": "Bịt",
+    "cost_price": 10000.0,
+    "sell_price": 13000.0,
+    "date": "18:08:51 13/08/2025"
+  },
+  {
+    "name": "Nước muối vĩnh phúc 500ml",
+    "expiry": "02/01/2028",
+    "quantity": 3,
+    "unit": "Chai",
+    "cost_price": 6000.0,
+    "sell_price": 8000.0,
+    "date": "18:10:26 13/08/2025"
+  },
+  {
+    "name": "Khẩu trang y tế hộp 50 cái",
+    "expiry": "15/01/2027",
+    "quantity": 2,
+    "unit": "Hộp",
+    "cost_price": 19000.0,
+    "sell_price": 30000.0,
+    "date": "18:14:36 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "18:14:59 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "18:17:38 13/08/2025"
+  },
+  {
+    "name": "Chống nắng emhapy",
+    "expiry": "02/01/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 96000.0,
+    "sell_price": 140000.0,
+    "date": "18:19:17 13/08/2025"
+  },
+  {
+    "name": "klenzit Ms",
+    "expiry": "02/01/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 75000.0,
+    "sell_price": 100000.0,
+    "date": "18:19:31 13/08/2025"
+  },
+  {
+    "name": "mexcol 500 sủi",
+    "expiry": "18/05/2026",
+    "quantity": 8,
+    "unit": "Viên",
+    "cost_price": 2000.0,
+    "sell_price": 3000.0,
+    "date": "18:21:07 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "18:31:25 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "18:36:08 13/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "07:16:35 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "07:16:48 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "07:17:08 14/08/2025"
+  },
+  {
+    "name": "Yousoon rau má",
+    "expiry": "01/09/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 23600.0,
+    "sell_price": 30000.0,
+    "date": "07:17:23 14/08/2025"
+  },
+  {
+    "name": "xịt mũi JUMBO",
+    "expiry": "17/08/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 50500.0,
+    "sell_price": 55000.0,
+    "date": "07:17:31 14/08/2025"
+  },
+  {
+    "name": "Eterogermina",
+    "expiry": "30/06/2026",
+    "quantity": 2,
+    "unit": "Ống",
+    "cost_price": 7900.0,
+    "sell_price": 9000.0,
+    "date": "07:18:42 14/08/2025"
+  },
+  {
+    "name": "Smecta",
+    "expiry": "23/02/2027",
+    "quantity": 1,
+    "unit": "gói",
+    "cost_price": 4300.0,
+    "sell_price": 5000.0,
+    "date": "07:19:04 14/08/2025"
+  },
+  {
+    "name": "v.rohto cool",
+    "expiry": "18/12/2027",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 52000.0,
+    "sell_price": 55000.0,
+    "date": "07:40:59 14/08/2025"
+  },
+  {
+    "name": "lostad 25",
+    "expiry": "24/01/2028",
+    "quantity": 3,
+    "unit": "Vĩ",
+    "cost_price": 14000.0,
+    "sell_price": 15000.0,
+    "date": "07:44:39 14/08/2025"
+  },
+  {
+    "name": "Dán con cọp",
+    "expiry": "01/11/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 7370.0,
+    "sell_price": 10000.0,
+    "date": "07:52:47 14/08/2025"
+  },
+  {
+    "name": "Kacetam 800",
+    "expiry": "25/04/2028",
+    "quantity": 30,
+    "unit": "Viên",
+    "cost_price": 520.0,
+    "sell_price": 800.0,
+    "date": "08:02:47 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "08:36:17 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "08:49:40 14/08/2025"
+  },
+  {
+    "name": "Khẩu trang 9A",
+    "expiry": "15/12/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 6800.0,
+    "sell_price": 10000.0,
+    "date": "09:00:31 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều 20k",
+    "expiry": "14/04/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 12000.0,
+    "sell_price": 20000.0,
+    "date": "09:08:50 14/08/2025"
+  },
+  {
+    "name": "Nifedipin hasan",
+    "expiry": "29/04/2028",
+    "quantity": 3,
+    "unit": "Vĩ",
+    "cost_price": 5070.0,
+    "sell_price": 7000.0,
+    "date": "09:09:05 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 3,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "09:09:16 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "date": "09:33:04 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "09:33:34 14/08/2025"
+  },
+  {
+    "name": "Enat 400 IU",
+    "expiry": "28/03/2027",
+    "quantity": 60,
+    "unit": "Viên",
+    "cost_price": 4000.0,
+    "sell_price": 4500.0,
+    "date": "10:35:03 14/08/2025"
+  },
+  {
+    "name": "Khẩu trang 5D",
+    "expiry": "15/01/2027",
+    "quantity": 6,
+    "unit": "Bịt",
+    "cost_price": 3500.0,
+    "sell_price": 7000.0,
+    "date": "10:35:15 14/08/2025"
+  },
+  {
+    "name": "panadol extra",
+    "expiry": "19/12/2027",
+    "quantity": 24,
+    "unit": "Viên",
+    "cost_price": 1258.0,
+    "sell_price": 1300.0,
+    "date": "10:36:13 14/08/2025"
+  },
+  {
+    "name": "Kem đánh răng colgate",
+    "expiry": "17/08/2027",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 31000.0,
+    "sell_price": 35000.0,
+    "date": "10:43:12 14/08/2025"
+  },
+  {
+    "name": "eugica đỏ",
+    "expiry": "26/10/2026",
+    "quantity": 10,
+    "unit": "Viên",
+    "cost_price": 720.0,
+    "sell_price": 900.0,
+    "date": "10:43:24 14/08/2025"
+  },
+  {
+    "name": "Viêm họng gia linh",
+    "expiry": "24/03/2027",
+    "quantity": 2,
+    "unit": "Bịt",
+    "cost_price": 13500.0,
+    "sell_price": 18000.0,
+    "date": "10:43:36 14/08/2025"
+  },
+  {
+    "name": "Refre",
+    "expiry": "14/01/2028",
+    "quantity": 1,
+    "unit": "Chai",
+    "cost_price": 49000.0,
+    "sell_price": 60000.0,
+    "date": "10:50:34 14/08/2025"
+  },
+  {
+    "name": "kem đánh răng bé dâu ps",
+    "expiry": "14/01/2028",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 5500.0,
+    "sell_price": 8000.0,
+    "date": "10:51:37 14/08/2025"
+  },
+  {
+    "name": "Salonpas",
+    "expiry": "15/03/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 12500.0,
+    "sell_price": 15000.0,
+    "date": "12:55:46 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "date": "12:56:03 14/08/2025"
+  },
+  {
+    "name": "eugica đỏ",
+    "expiry": "26/10/2026",
+    "quantity": 10,
+    "unit": "Viên",
+    "cost_price": 720.0,
+    "sell_price": 900.0,
+    "discount": 0.0,
+    "date": "13:24:59 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều",
+    "expiry": "19/12/2027",
+    "quantity": 2,
+    "unit": "Ngày",
+    "cost_price": 7000.0,
+    "sell_price": 15000.0,
+    "discount": 5000.0,
+    "date": "13:56:51 14/08/2025"
+  },
+  {
+    "name": "Kẹo albenlebe cây",
+    "expiry": "15/09/2026",
+    "quantity": 3,
+    "unit": "Cây",
+    "cost_price": 4000.0,
+    "sell_price": 5000.0,
+    "discount": 0.0,
+    "date": "15:05:53 14/08/2025"
+  },
+  {
+    "name": "Salonpas",
+    "expiry": "15/03/2027",
+    "quantity": 1,
+    "unit": "Bịt",
+    "cost_price": 12500.0,
+    "sell_price": 15000.0,
+    "discount": 0.0,
+    "date": "15:26:40 14/08/2025"
+  },
+  {
+    "name": "Thuốc liều 18k",
+    "expiry": "15/12/2027",
+    "quantity": 1,
+    "unit": "Ngày",
+    "cost_price": 11000.0,
+    "sell_price": 18000.0,
+    "discount": 0.0,
+    "date": "15:56:28 14/08/2025"
+  },
+  {
+    "name": "Khang",
+    "expiry": "14/08/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 1000.0,
+    "sell_price": 2000.0,
+    "discount": 0.0,
+    "date": "16:11:57 14/08/2025"
   }
 ]

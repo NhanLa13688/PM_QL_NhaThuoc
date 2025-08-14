@@ -1,4 +1,4 @@
-('D:\\30_WorkSpace\\Project_QLThuoc\\PM_QL_NhaThuoc\\build\\QuanLyThuoc\\PYZ-00.pyz',
+('D:\\30_WorkSpace\\Project_QLThuoc\\PM_QL_NhaThuoc\\PM_QL_NhaThuoc\\build\\QuanLyThuoc\\PYZ-00.pyz',
  [('PIL',
    'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\PIL\\__init__.py',
    'PYMODULE'),

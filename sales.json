@@ -1318,5 +1318,113 @@
     "sell_price": 2000.0,
     "discount": 0.0,
     "date": "16:11:57 14/08/2025"
+  },
+  {
+    "name": "Ampicilin",
+    "expiry": "11/11/2027",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 740.0,
+    "sell_price": 1000.0,
+    "discount": 0.0,
+    "date": "10:33:41 05/09/2025"
+  },
+  {
+    "name": "BCS SATO",
+    "expiry": "17/08/2028",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 28000.0,
+    "sell_price": 50000.0,
+    "discount": 0.0,
+    "date": "10:33:41 05/09/2025"
+  },
+  {
+    "customer": "Nguyen Van A",
+    "name": "Băng cá nhân ugro h/102M",
+    "expiry": "31/05/2029",
+    "quantity": 1,
+    "unit": "Miếng",
+    "cost_price": 587.0,
+    "sell_price": 800.0,
+    "discount": 0.0,
+    "date": "10:38:44 05/09/2025"
+  },
+  {
+    "customer": "Nguyen Van A",
+    "name": "BCS durex",
+    "expiry": "31/03/2030",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 40000.0,
+    "sell_price": 46000.0,
+    "discount": 0.0,
+    "date": "10:38:44 05/09/2025"
+  },
+  {
+    "customer": "Nguyen Van A",
+    "name": "Corbiere calcium 08/26",
+    "expiry": "19/08/2026",
+    "quantity": 1,
+    "unit": "ống",
+    "cost_price": 6230.0,
+    "sell_price": 7000.0,
+    "discount": 0.0,
+    "date": "10:38:44 05/09/2025"
+  },
+  {
+    "customer": "Khách lẻ",
+    "name": "Bocalex cam",
+    "expiry": "29/05/2027",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 27200.0,
+    "sell_price": 32000.0,
+    "discount": 0.0,
+    "date": "10:44:30 05/09/2025"
+  },
+  {
+    "customer": "Khách lẻ",
+    "name": "Stadovas",
+    "expiry": "01/10/2028",
+    "quantity": 1,
+    "unit": "Vĩ",
+    "cost_price": 6666.0,
+    "sell_price": 8000.0,
+    "discount": 0.0,
+    "date": "10:44:30 05/09/2025"
+  },
+  {
+    "customer": "Nguyễn Văn A",
+    "name": "BCS SATO",
+    "expiry": "17/08/2028",
+    "quantity": 1,
+    "unit": "Hộp",
+    "cost_price": 28000.0,
+    "sell_price": 50000.0,
+    "discount": 0.0,
+    "date": "11:02:33 05/09/2025"
+  },
+  {
+    "customer": "Nguyễn Văn A",
+    "name": "A B1",
+    "expiry": "08/09/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 0.0,
+    "sell_price": 0.0,
+    "discount": 0.0,
+    "date": "11:02:33 05/09/2025"
+  },
+  {
+    "customer": "Nguyên B",
+    "name": "A B1",
+    "expiry": "10/09/2025",
+    "quantity": 1,
+    "unit": "Viên",
+    "cost_price": 0.0,
+    "sell_price": 0.0,
+    "discount": 0.0,
+    "date": "11:16:57 05/09/2025"
   }
 ]
